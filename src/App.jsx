@@ -24,17 +24,15 @@ function App() {
   return (
     <>
       <div>
-        <div className={`md:border   md:h-[60px] grid md:grid-cols-2 gap-8`}>
+        <div className={`md:border  md:h-[60px] grid md:grid-cols-2 gap-8`}>
           <div>
             <div className="grid grid-cols-2 ">
               <div className="p-2">
-                <NavLink to="/">
-                  <img
-                    className="w-[250px]"
-                    src="logo furniture.png"
-                    alt="logo"
-                  />
-                </NavLink>
+                <img
+                  className="w-[250px]"
+                  src="logo furniture.png"
+                  alt="logo"
+                />
               </div>
               <div className="md:hidden m-6 flex justify-end block float-end">
                 {toggleNav ? (
@@ -56,7 +54,7 @@ function App() {
             </div>
             <div>
               {toggleNav ? (
-                <div className="grid bg-slate-500 block m-4 rounded-lg md:hidden md:grid-cols-4 md:gap-2 border">
+                <div className="grid  first-line: bg-slate-500 block m-4 rounded-lg md:hidden md:grid-cols-4 md:gap-2 border">
                   <NavLink className="  " to="/">
                     <div className=" w-[100%] text-center  text-white   p-[1.2em]">
                       Home
@@ -100,9 +98,10 @@ function App() {
                         </h2>
                       ) : (
                         <span className="text-sm text-center pr-2 text-slate-900">
-                          Loading...
+                          Hii,
+                          <br /> Guest
                         </span>
-                      )}
+                      ) }
                     </div>
                   </div>
                 </div>
@@ -148,7 +147,8 @@ function App() {
                   </h2>
                 ) : (
                   <span className="text-sm text-center pr-2 text-slate-900">
-                    Loading...
+                    Hii,
+                    <br /> Guest
                   </span>
                 )}
               </div>
