@@ -28,7 +28,13 @@ function App() {
           <div>
             <div className="grid grid-cols-2 ">
               <div className="p-2">
-                <img src="" alt="logo" />
+                <NavLink to="/">
+                  <img
+                    className="w-[250px]"
+                    src="logo furniture.png"
+                    alt="logo"
+                  />
+                </NavLink>
               </div>
               <div className="md:hidden m-6 flex justify-end block float-end">
                 {toggleNav ? (
