@@ -6,8 +6,8 @@ const Home = () => {
   return (
     <div>
       <div className="h-[100vh] bg-gradient-to-t from-orange-50 to-blue-100  ">
-        <div className="grid  items-center md:grid-cols-2 pt-[130px] md:pt-[80px]">
-          <div className="ml-10 mr-10   items-center ">
+        <div className="grid  items-center md:grid-cols-2 pt-[70px] md:pt-[130px] md:pt-[80px]">
+          <div className="ml-10 mr-10 items-center ">
             <h2 className="text-4xl p-1 font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               Furniture That Fits Your Life, Style, and Space
             </h2>
