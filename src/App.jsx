@@ -14,6 +14,7 @@ import {
 } from "@clerk/clerk-react";
 
 import { useUser } from "@clerk/clerk-react";
+import ProductID from "./component/pages/ProductID";
 
 function App() {
   const [toggleNav, setToggleNav] = useState(false);
@@ -101,7 +102,7 @@ function App() {
                           Hii,
                           <br /> Guest
                         </span>
-                      ) }
+                      )}
                     </div>
                   </div>
                 </div>
@@ -162,6 +163,7 @@ function App() {
           <Route path="/about_us" element={<About />} />
           <Route path="/product_page" element={<Product />} />
           <Route path="/add_to_cart" element={<AddCart />} />
+          <Route path="/product_page/:id" element={<ProductID />} />
         </Routes>
       </div>
     </>

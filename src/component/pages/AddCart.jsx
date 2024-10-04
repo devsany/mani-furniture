@@ -1,26 +1,25 @@
 import { Button } from "../../../components/ui/button";
 import { useUser } from "@clerk/clerk-react";
-import { CaretUpIcon } from "@radix-ui/react-icons";
-import {
-  CarFrontIcon,
-  Carrot,
-  CarTaxiFront,
-  CarTaxiFrontIcon,
-  ChevronRight,
-} from "lucide-react";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+import { CarTaxiFrontIcon, ShoppingBag } from "lucide-react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 // import { Redirect, Route, Routes } from "react-router-dom"; // or whatever routing library you use
 
 // import { Redirect } from "react-router-dom";
 const AddCart = () => {
   const { isLoaded, user } = useUser();
-
+  // const [getLocalStorageItem, setGetLocalStorageItem] = useState([]);
+  const storedTodos = localStorage.getItem("todoList");
+  console.log(JSON.parse(storedTodos));
+  // setGetLocalStorageItem(JSON.parse(storedTodos));
+  const handleClick = () => {};
   // Wait until the user information is loaded
   if (!isLoaded) {
     return (
       <div>
         <div className="flex h-[100vh] justify-center items-center">
-          <h2 className="text-4xl p-1  font-bold bg-gradient-to-r from-pink-500 to-yellow-600 bg-clip-text text-transparent scroll-m-30 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          <h2 className="text-4xl pb-2  font-bold bg-gradient-to-r from-pink-500 to-yellow-600 bg-clip-text text-transparent scroll-m-30 text-4xl font-extrabold tracking-tight lg:text-5xl">
             Loading...
           </h2>
         </div>
@@ -35,7 +34,40 @@ const AddCart = () => {
     <div>
       <div>
         {user ? (
-          <div>hi</div>
+          <div>
+            {JSON.parse(storedTodos) &&
+              JSON.parse(storedTodos).map((item, index) => {
+                return (
+                  <>
+                    <div className="border p-4 m-3 md:grid gap-5 md:grid-cols-4  grid   grid-cols-2">
+                      <div>
+                        <img
+                          className="w-[60px] md:w-[100px] shadow-lg rounded-md"
+                          src={item.imageUrl}
+                          alt=""
+                        />
+                      </div>
+                      <div className="flex items-center">
+                        <button>+</button>
+                        <span className="text-sm p-3">{item.price}</span>{" "}
+                        <button>-</button>
+                      </div>
+                      <div className=" flex items-center text-sm text-gray-700">
+                        {item.name} <br /> {item.category} <br />
+                        Price: {item.price}
+                        <br />
+                        {item.color}
+                      </div>
+                      <div className="flex items-center">
+                        <Button onClick={handleClick} variant="destructive">
+                          Delete
+                        </Button>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
+          </div>
         ) : (
           <div className="h-[100vh] bg-gradient-to-t from-green-50 to-pink-100  ">
             <div className="md:grid h-[200px] md:pt-[120px]  md:grid-cols-2 ">
@@ -53,7 +85,7 @@ const AddCart = () => {
                       <div className="flex">
                         <div className="text-pink-500">Get Started </div>
                         <div className="pt-[2px]">
-                          <CarTaxiFrontIcon className="ml-1 text-pink-500 border-none h-4 w-4" />
+                          <ShoppingBag className="ml-2 text-pink-500 border-none h-4 w-4" />
                         </div>
                       </div>
                     </NavLink>
