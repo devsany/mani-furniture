@@ -21,6 +21,9 @@ function App() {
   const handleToggle = () => {
     setToggleNav(!toggleNav);
   };
+  const handleNavDis = () => {
+    setToggleNav(false);
+  };
   const { user } = useUser();
   return (
     <>
@@ -56,27 +59,27 @@ function App() {
             <div>
               {toggleNav ? (
                 <div className="grid  first-line: bg-slate-500 block m-4 rounded-lg md:hidden md:grid-cols-4 md:gap-2 border">
-                  <NavLink className="  " to="/">
+                  <NavLink onClick={handleNavDis} className=" " to="/">
                     <div className=" w-[100%] text-center  text-white   p-[1.2em]">
                       Home
                     </div>
                   </NavLink>
                   <div>
-                    <NavLink to="about_us">
+                    <NavLink onClick={handleNavDis} to="about_us">
                       <div className=" w-[100%] text-center text-white    p-[1.2em]">
                         About us
                       </div>
                     </NavLink>
                   </div>
                   <div>
-                    <NavLink to="product_page">
+                    <NavLink onClick={handleNavDis} to="product_page">
                       <div className=" w-[100%] text-center  text-white  p-[1.2em]">
                         Product Page
                       </div>
                     </NavLink>
                   </div>
                   <div className=" ">
-                    <NavLink to="add_to_cart">
+                    <NavLink onClick={handleNavDis} to="add_to_cart">
                       <div className=" w-[100%] text-center  text-white  p-[1.2em]">
                         Add to cart Page
                       </div>
