@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import app from "../firebaseConfig/firebase";
 import { ref, get, getDatabase } from "firebase/database";
 import { useEffect, useState } from "react";
+import { ShoppingBag } from "lucide-react";
 
 // import { Redirect, Route, Routes } from "react-router-dom"; // or whatever routing library you use
 
@@ -60,42 +61,117 @@ const AddCart = () => {
 
   // Render the cart page for logged-in users
   return (
-    <div className="grid md:grid-cols-2">
+    <div>
       <div>
         {user ? (
-          <div>
-            {data &&
-              data.map((item, index) => {
-                return (
-                  <>
-                    <div className="border p-4 m-3 md:grid gap-5 md:grid-cols-4  grid   grid-cols-2">
-                      <div>
-                        <img
-                          className="w-[60px] md:w-[100px] shadow-lg rounded-md"
-                          src={item.imageUrl}
-                          alt=""
-                        />
-                      </div>
-                      <div className="flex items-center">
-                        <button>+</button>
-                        <span className="text-sm p-3">{item.price}</span>{" "}
-                        <button>-</button>
-                      </div>
-                      <div className=" flex items-center text-sm text-gray-700">
-                        {item.name} <br /> {item.category} <br />
-                        Price: {item.price}
-                        <br />
-                        {item.color}
-                      </div>
-                      <div className="flex items-center">
-                        {/* <Button onClick={handleClick} variant="destructive">
+          <div className="grid md:grid-cols-2">
+            <div>
+              {data &&
+                data.map((item, index) => {
+                  return (
+                    <>
+                      <div className="border p-4 m-3 md:grid gap-5 md:grid-cols-4  grid   grid-cols-2">
+                        <div>
+                          <img
+                            className="w-[60px] md:w-[100px] shadow-lg rounded-md"
+                            src={item.imageUrl}
+                            alt=""
+                          />
+                        </div>
+                        <div className="flex items-center">
+                          <button>+</button>
+                          <span className="text-sm p-3">{item.price}</span>{" "}
+                          <button>-</button>
+                        </div>
+                        <div className=" flex items-center text-sm text-gray-700">
+                          {item.name} <br /> {item.category} <br />
+                          Price: {item.price}
+                          <br />
+                          {item.color}
+                        </div>
+                        <div className="flex items-center">
+                          {/* <Button onClick={handleClick} variant="destructive">
                           Delete
                         </Button> */}
+                        </div>
                       </div>
-                    </div>
-                  </>
-                );
-              })}
+                    </>
+                  );
+                })}
+            </div>
+            <div>
+              <div className="border m-3">
+                <div className="flex justify-center mt-3 ">
+                  <div className="text-2xl font-bold text-gray-700">
+                    Customize the product Data
+                  </div>
+                </div>
+                {data1 &&
+                  data1.map((item, index) => {
+                    return (
+                      <>
+                        <div className="p-3   border-b-4 m-2">
+                          <div className="pl-3">{index + 1}</div>
+                          <div className="pl-2 pr-2 bg-purple-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-purple-700">
+                            Product Name : {item.t}
+                          </div>
+                          <div className="grid grid-cols-3">
+                            <div className="pl-2 pr-2 bg-lime-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-green-700">
+                              Product Length : {item.l} {item.lm}
+                            </div>
+                            <div className="pl-2 pr-2 bg-orange-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-orange-700">
+                              Product Breadth : {item.b} {item.bm}
+                            </div>
+                            <div className="pl-2 pr-2 bg-yellow-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-yellow-700">
+                              Product Height : {item.h} {item.hm}
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-4">
+                            <div className="pl-2 pr-2 bg-blue-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-blue-700">
+                              {" "}
+                              Type : {item.t}
+                            </div>
+                            <div className="pl-2 pr-2 bg-orange-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-orange-700">
+                              {" "}
+                              Quantity : {item.q}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="border p-2 m-1 rounded-lg bg-gray-100">
+                              <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
+                                {" "}
+                                Instruction 1:
+                              </span>{" "}
+                              <br />
+                              <span className="pl-2"> {item.i1}</span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="border p-2 m-1 rounded-lg bg-gray-100">
+                              <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
+                                {" "}
+                                Instruction 2:
+                              </span>{" "}
+                              <br />
+                              <span className="pl-2"> {item.i2}</span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="border p-2 m-1 rounded-lg bg-gray-100">
+                              <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
+                                {" "}
+                                Instruction 3:
+                              </span>{" "}
+                              <br />
+                              <span className="pl-2"> {item.i3}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
         ) : (
           <div className="h-[100vh] bg-gradient-to-t from-green-50 to-pink-100  ">
@@ -128,77 +204,7 @@ const AddCart = () => {
           </div>
         )}
       </div>
-      <div className="border m-3">
-        <div className="flex justify-center mt-3 ">
-          <div className="text-2xl font-bold text-gray-700">
-            Customize the product Data
-          </div>
-        </div>
-        {data1 &&
-          data1.map((item, index) => {
-            return (
-              <>
-                <div className="p-3   border-b-4 m-2">
-                  <div className="pl-3">{index + 1}</div>
-                  <div className="pl-2 pr-2 bg-purple-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-purple-700">
-                    Product Name : {item.t}
-                  </div>
-                  <div className="grid grid-cols-3">
-                    <div className="pl-2 pr-2 bg-lime-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-green-700">
-                      Product Length : {item.l} {item.lm}
-                    </div>
-                    <div className="pl-2 pr-2 bg-orange-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-orange-700">
-                      Product Breadth : {item.b} {item.bm}
-                    </div>
-                    <div className="pl-2 pr-2 bg-yellow-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-yellow-700">
-                      Product Height : {item.h} {item.hm}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-4">
-                    <div className="pl-2 pr-2 bg-blue-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-blue-700">
-                      {" "}
-                      Type : {item.t}
-                    </div>
-                    <div className="pl-2 pr-2 bg-orange-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-orange-700">
-                      {" "}
-                      Quantity : {item.q}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="border p-2 m-1 rounded-lg bg-gray-100">
-                      <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
-                        {" "}
-                        Instruction 1:
-                      </span>{" "}
-                      <br />
-                      <span className="pl-2"> {item.i1}</span>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="border p-2 m-1 rounded-lg bg-gray-100">
-                      <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
-                        {" "}
-                        Instruction 2:
-                      </span>{" "}
-                      <br />
-                      <span className="pl-2"> {item.i2}</span>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="border p-2 m-1 rounded-lg bg-gray-100">
-                      <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
-                        {" "}
-                        Instruction 3:
-                      </span>{" "}
-                      <br />
-                      <span className="pl-2"> {item.i3}</span>
-                    </div>
-                  </div>
-                </div>
-              </>
-            );
-          })}
-      </div>
+
       {/* Your cart components go here */}
     </div>
   );
