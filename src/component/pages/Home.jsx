@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import Feature from "../HomeComponent/Feature";
 import NewArival from "../HomeComponent/NewArival";
+import Contacts from "../HomeComponent/Contact";
 
 const Home = () => {
   return (
@@ -64,6 +65,9 @@ const Home = () => {
         </div>
         <div>
           <NewArival />
+        </div>
+        <div>
+          <Contacts />
         </div>
       </div>
     </div>
