@@ -1,8 +1,5 @@
 import { Button } from "../../../components/ui/button";
-import { useUser } from "@clerk/clerk-react";
-import { CaretSortIcon } from "@radix-ui/react-icons";
-import { CarTaxiFrontIcon, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { useUser } from "@clerk/clerk-react";   
 import { NavLink } from "react-router-dom";
 // import { Redirect, Route, Routes } from "react-router-dom"; // or whatever routing library you use
 

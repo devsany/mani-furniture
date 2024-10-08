@@ -8,10 +8,11 @@ const Home = () => {
       <div className="h-[100vh] bg-gradient-to-t from-orange-50 to-blue-100  ">
         <div className="grid    items-center md:grid-cols-2 pt-[70px] md:pt-[100px] md:pt-[80px]">
           <div className="ml-10 mr-10 items-center ">
-            <h2 className="text-4xl pb-2 font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            <h2 className="text-3xl pb-2 font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               Furniture That Fits Your Life, Style, and Space
             </h2>
-            <p className="leading-7 font-thin   [&:not(:first-child)]:mt-6">
+
+            <div className="leading-7 font-thin   [&:not(:first-child)]:mt-6">
               At{" "}
               <span className="bg-gradient-to-l text-white pb-1 pt-1 rounded pl-1 pr-1 from-teal-400 to-blue-500">
                 {" "}
@@ -21,7 +22,7 @@ const Home = () => {
               collection combines quality, design, and comfort, ensuring every
               piece feels right at home. Discover how our furniture can
               transform your everyday moments into extraordinary experiences
-            </p>
+            </div>
             <div className="mt-5">
               <Button
                 variant="secondary"
@@ -47,6 +48,7 @@ const Home = () => {
             />
           </div>
         </div>
+        hii
       </div>
     </div>
   );
