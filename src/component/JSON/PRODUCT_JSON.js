@@ -202,3 +202,59 @@ export const furniture_json = {
     },
   },
 };
+
+export const feature = [
+  {
+    id: 1,
+    img: "living_room1.jpg",
+    name: "Living Room",
+  },
+  {
+    id: 2,
+    img: "bad_room.jpg",
+    name: "Bed Room",
+  },
+  {
+    id: 3,
+    img: "outdoorFurniture.jpg",
+    name: "Outdoor Furniture",
+  },
+];
+
+export const popular = [
+  {
+    id: 1,
+    title: "Popular",
+    img: "1.jpg",
+    price: "₹14,000",
+    name: "Bomboo Chair",
+  },
+  {
+    id: 2,
+    title: "New",
+    img: "2.jpg",
+    price: "₹16,000",
+    name: "Bomboo Chair",
+  },
+  {
+    id: 3,
+    title: "Popular",
+    img: "3.jpg",
+    price: "₹12,000",
+    name: "Bomboo Chair",
+  },
+  {
+    id: 4,
+    title: "New",
+    img: "4.jpg",
+    price: "₹15,000",
+    name: "Bomboo Chair",
+  },
+  {
+    id: 5,
+    title: "New",
+    img: "5.jpg",
+    price: "₹17,000",
+    name: "Bomboo Chair",
+  },
+];

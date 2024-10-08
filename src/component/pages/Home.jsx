@@ -1,6 +1,8 @@
 import { Button } from "../../../components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import Feature from "../HomeComponent/Feature";
+import NewArival from "../HomeComponent/NewArival";
 
 const Home = () => {
   return (
@@ -42,13 +44,27 @@ const Home = () => {
 
           <div className=" mt-10 p-[25px] md:p-[50px] md:mt-0 items-center flex justify-center">
             <img
-              className="w-[100%] h-[100%]  rounded-xl shadow-md"
+              className="w-[100%] h-[100%]  rounded-xl shadow-lg"
               src="landing show page for funiture.jpg"
               alt=""
             />
           </div>
         </div>
-        hii
+        <div className="flex justify-center">
+          {" "}
+          <h2
+            className="mt-[50px]
+         lg:mt-[110px] md:mt-[110px] text-2xl  md:text-3xl font-bold text-amber-800 drop-shadow-lg font-serif"
+          >
+            Featured Collections or Categories
+          </h2>
+        </div>
+        <div>
+          <Feature />
+        </div>
+        <div>
+          <NewArival />
+        </div>
       </div>
     </div>
   );
