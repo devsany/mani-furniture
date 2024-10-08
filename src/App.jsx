@@ -15,6 +15,7 @@ import {
 
 import { useUser } from "@clerk/clerk-react";
 import ProductID from "./component/pages/ProductID";
+import Customize from "./component/pages/Customize";
 
 function App() {
   const [toggleNav, setToggleNav] = useState(false);
@@ -85,6 +86,13 @@ function App() {
                       </div>
                     </NavLink>
                   </div>
+                  <div className=" ">
+                    <NavLink onClick={handleNavDis} to="customize">
+                      <div className=" w-[100%] text-center  text-white  p-[1.2em]">
+                        Customize
+                      </div>
+                    </NavLink>
+                  </div>
                   <div className="flex justify-center">
                     <SignedOut>
                       <SignInButton className="" />
@@ -113,7 +121,7 @@ function App() {
             </div>
           </div>
 
-          <div className=" text-black h-[50px ] text-center items-center  hidden md:grid md:grid-cols-6 md:gap-2  ">
+          <div className=" text-black h-[50px ] text-center items-center  hidden md:grid md:grid-cols-7 md:gap-2  ">
             <div className="  text-center ">
               <NavLink className="text-slate-900" to="/">
                 Home
@@ -122,6 +130,11 @@ function App() {
             <div>
               <NavLink className="text-slate-900" to="about_us">
                 About
+              </NavLink>
+            </div>
+            <div>
+              <NavLink className="text-slate-900" to="customize">
+                Custome
               </NavLink>
             </div>
             <div>
@@ -166,6 +179,7 @@ function App() {
           <Route path="/about_us" element={<About />} />
           <Route path="/product_page" element={<Product />} />
           <Route path="/add_to_cart" element={<AddCart />} />
+          <Route path="/customize" element={<Customize />} />
           <Route path="/product_page/:id" element={<ProductID />} />
         </Routes>
       </div>

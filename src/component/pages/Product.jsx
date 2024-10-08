@@ -20,12 +20,16 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import app from "../firebaseConfig/firebase";
+
+import { ref, set, push, getDatabase } from "firebase/database";
 
 const Product = () => {
   const value = useSelector((state) => state.data);
   const value1 = useSelector((state) => state.cat_liv);
   const dispatch = useDispatch();
   const [DataToLocalStorage, setDataToLocalStorage] = useState([]);
+  const [color, setColor] = useState(false);
 
   const { user } = useUser();
   console.log(user);
@@ -34,14 +38,41 @@ const Product = () => {
     dispatch(CAT_living_Room());
   };
 
-  const handleGetId = (id) => {
-    setLocalFn();
-    const data = value.furniture.filter((item) => item.id == id);
-    console.log(data[0]);
-    setDataToLocalStorage([...DataToLocalStorage, data[0]]);
-  };
-  const setLocalFn = () => {
-    localStorage.setItem("todoList", JSON.stringify(DataToLocalStorage));
+  // const handleGetId = (id) => {
+  //   setLocalFn();
+  //   const data = value.furniture.filter((item) => item.id == id);
+  //   console.log(data[0]);
+  //   setDataToLocalStorage([...DataToLocalStorage, data[0]]);
+  // };
+  // const setLocalFn = () => {
+  //   localStorage.setItem("todoList", JSON.stringify(DataToLocalStorage));
+  // };
+
+  const handleClick = async (items) => {
+    console.log(items);
+    console.log("clicked add to cart page");
+    const db = getDatabase(app);
+    const newDocRecipe = push(ref(db, "data / users /" + `${user.id}`));
+    console.log(newDocRecipe);
+    set(newDocRecipe, {
+      id: items.id,
+      name: items.name,
+      material: items.material,
+      price: items.price,
+      rating: items.rating,
+
+      category: items.category,
+      color: items.color,
+      description: items.description,
+      imageUrl: items.imageUrl,
+    })
+      .then(() => {
+        alert("data saved successfully");
+        setColor(true);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
   useEffect(() => {
     dispatch(green());
@@ -181,13 +212,22 @@ const Product = () => {
                                 </div>
                               </NavLink>
                               <div className="bg-slate-200 p-1 h-[35px]">
-                                <div
+                                {/* <div
                                   onClick={() => {
                                     handleGetId(item.id);
                                   }}
                                   className="text-center  ml-5 mr-5 rounded-md cursor-pointer font-bold   bg-green-400 text-white   hover:bg-purple-600"
                                 >
                                   Add to Cart
+                                </div> */}
+
+                                <div>
+                                  <div
+                                    className="border bg-green-300 text-center rounded-lg cursor-pointer text-md font-serif"
+                                    onClick={() => handleClick(item)}
+                                  >
+                                    Add to cart
+                                  </div>
                                 </div>
                               </div>
                             </div>

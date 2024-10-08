@@ -1,16 +1,35 @@
 import { Button } from "../../../components/ui/button";
-import { useUser } from "@clerk/clerk-react";   
+import { useUser } from "@clerk/clerk-react";
 import { NavLink } from "react-router-dom";
+import app from "../firebaseConfig/firebase";
+import { ref, get, getDatabase } from "firebase/database";
+import { useEffect, useState } from "react";
+
 // import { Redirect, Route, Routes } from "react-router-dom"; // or whatever routing library you use
 
 // import { Redirect } from "react-router-dom";
 const AddCart = () => {
+  const [data, setData] = useState([]);
   const { isLoaded, user } = useUser();
+  console.log("data", data);
   // const [getLocalStorageItem, setGetLocalStorageItem] = useState([]);
-  const storedTodos = localStorage.getItem("todoList");
-  console.log(JSON.parse(storedTodos));
+  // const storedTodos = localStorage.getItem("todoList");
+  // console.log(JSON.parse(storedTodos));
   // setGetLocalStorageItem(JSON.parse(storedTodos));
-  const handleClick = () => {};
+  const fetchData = async () => {
+    const db = getDatabase(app);
+    const dataRef = ref(db, "data / users /" + `${user.id}`);
+    const snapshot = await get(dataRef);
+    console.log(snapshot);
+    if (snapshot.exists()) {
+      setData(Object.values(snapshot.val()));
+    } else {
+      alert("data is not found");
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   // Wait until the user information is loaded
   if (!isLoaded) {
     return (
@@ -32,8 +51,8 @@ const AddCart = () => {
       <div>
         {user ? (
           <div>
-            {JSON.parse(storedTodos) &&
-              JSON.parse(storedTodos).map((item, index) => {
+            {data &&
+              data.map((item, index) => {
                 return (
                   <>
                     <div className="border p-4 m-3 md:grid gap-5 md:grid-cols-4  grid   grid-cols-2">
@@ -56,9 +75,9 @@ const AddCart = () => {
                         {item.color}
                       </div>
                       <div className="flex items-center">
-                        <Button onClick={handleClick} variant="destructive">
+                        {/* <Button onClick={handleClick} variant="destructive">
                           Delete
-                        </Button>
+                        </Button> */}
                       </div>
                     </div>
                   </>
