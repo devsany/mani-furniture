@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 // import { Redirect } from "react-router-dom";
 const AddCart = () => {
   const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
   const { isLoaded, user } = useUser();
   console.log("data", data);
   // const [getLocalStorageItem, setGetLocalStorageItem] = useState([]);
@@ -27,8 +28,20 @@ const AddCart = () => {
       alert("data is not found");
     }
   };
+  const fetchData1 = async () => {
+    const db = getDatabase(app);
+    const dataRef = ref(db, "data / custom /" + `${user.id}`);
+    const snapshot = await get(dataRef);
+    console.log(snapshot);
+    if (snapshot.exists()) {
+      setData1(Object.values(snapshot.val()));
+    } else {
+      alert("data is not found");
+    }
+  };
   useEffect(() => {
     fetchData();
+    fetchData1();
   }, []);
   // Wait until the user information is loaded
   if (!isLoaded) {
@@ -47,7 +60,7 @@ const AddCart = () => {
 
   // Render the cart page for logged-in users
   return (
-    <div>
+    <div className="grid md:grid-cols-2">
       <div>
         {user ? (
           <div>
@@ -114,6 +127,77 @@ const AddCart = () => {
             </div>
           </div>
         )}
+      </div>
+      <div className="border m-3">
+        <div className="flex justify-center mt-3 ">
+          <div className="text-2xl font-bold text-gray-700">
+            Customize the product Data
+          </div>
+        </div>
+        {data1 &&
+          data1.map((item, index) => {
+            return (
+              <>
+                <div className="p-3   border-b-4 m-2">
+                  <div className="pl-3">{index + 1}</div>
+                  <div className="pl-2 pr-2 bg-purple-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-purple-700">
+                    Product Name : {item.t}
+                  </div>
+                  <div className="grid grid-cols-3">
+                    <div className="pl-2 pr-2 bg-lime-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-green-700">
+                      Product Length : {item.l} {item.lm}
+                    </div>
+                    <div className="pl-2 pr-2 bg-orange-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-orange-700">
+                      Product Breadth : {item.b} {item.bm}
+                    </div>
+                    <div className="pl-2 pr-2 bg-yellow-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-yellow-700">
+                      Product Height : {item.h} {item.hm}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4">
+                    <div className="pl-2 pr-2 bg-blue-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-blue-700">
+                      {" "}
+                      Type : {item.t}
+                    </div>
+                    <div className="pl-2 pr-2 bg-orange-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-orange-700">
+                      {" "}
+                      Quantity : {item.q}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="border p-2 m-1 rounded-lg bg-gray-100">
+                      <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
+                        {" "}
+                        Instruction 1:
+                      </span>{" "}
+                      <br />
+                      <span className="pl-2"> {item.i1}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="border p-2 m-1 rounded-lg bg-gray-100">
+                      <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
+                        {" "}
+                        Instruction 2:
+                      </span>{" "}
+                      <br />
+                      <span className="pl-2"> {item.i2}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="border p-2 m-1 rounded-lg bg-gray-100">
+                      <span className="pl-2 pr-2 bg-red-400 md:text-md text-sm m-1 rounded-lg border-2 text-gray-700 border-red-700">
+                        {" "}
+                        Instruction 3:
+                      </span>{" "}
+                      <br />
+                      <span className="pl-2"> {item.i3}</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            );
+          })}
       </div>
       {/* Your cart components go here */}
     </div>

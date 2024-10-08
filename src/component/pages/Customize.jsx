@@ -2,7 +2,7 @@ import { useUser } from "@clerk/clerk-react";
 import { ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { useForm, ValidationError } from "@formspree/react";
 import app from "../firebaseConfig/firebase";
 
 import { ref, set, push, getDatabase } from "firebase/database";
@@ -30,23 +30,35 @@ const Customize = () => {
   const [fname] = useState(user?.firstName);
   const [lname] = useState(user?.lastName);
   const [email] = useState(user?.emailAddresses[0].emailAddress);
+  const [state] = useForm("xwpkeabp");
   const currentDate = new Date();
+  const [error, setError] = useState({});
 
-  const [recipe, setRecipe] = useState({
-    names: "",
-    ingredients: "",
-    instructions: "",
-    cookingTime: "",
-    preparationTime: "",
-    servings: "",
-    cuisine: "",
-    notes: "",
+  const [m, setM] = useState({
+    l: "",
+    lm: "",
+    b: "",
+    bm: "",
+    h: "",
+    hm: "",
+    q: "",
+    t: "",
+    i1: "",
+    i2: "",
+    i3: "",
     fname: fname,
     lname: lname,
     email: email,
     date: currentDate.toLocaleDateString(),
   });
-  const [error, setError] = useState({});
+
+  if (state.succeeded) {
+    return <p>Thanks for joining!</p>;
+  }
+
+  //   const [lm, setLm] = useState("");
+  //   const [bm, setBm] = useState("");
+  //   const [hm, setHm] = useState("");
   // const [open, setOpen] = useState(false);
   //   const isDesktop = useMediaQuery("(min-width: 768px)");
   //
@@ -65,28 +77,43 @@ const Customize = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const error = {};
-    if (!recipe.names) {
-      error.names = "require";
-    } else if (!recipe.ingredients) {
-      error.ingredients = "require";
-    } else if (!recipe.instructions) {
-      error.instructions = "require";
+    if (!m.l) {
+      error.l = "Length require";
+    } else if (!m.lm) {
+      error.lm = "Mesurnment require";
+    } else if (!m.b) {
+      error.b = "Width Require";
+    } else if (!m.bm) {
+      error.bm = "Mesurnment require";
+    } else if (!m.h) {
+      error.h = "Height Require";
+    } else if (!m.hm) {
+      error.hm = "Mesurnment require";
+    } else if (!m.q) {
+      error.q = "Quantity Require";
+    } else if (!m.t) {
+      error.t = "Type Require";
+    } else if (!m.i1) {
+      error.i1 = "Instructions Require";
+    } else if (!m.i2) {
+      error.i2 = "Instructions Require";
+    } else if (!m.i3) {
+      error.i3 = "Instructions Require";
     } else {
       const db = getDatabase(app);
-      const newDocRecipe = push(ref(db, "data / users /" + `${user.id}`));
-      set(newDocRecipe, {
-        name: recipe.names,
-        ingredients: recipe.ingredients,
-        instructions: recipe.instructions,
-        cookingTime: recipe.cookingTime,
-        preparationTime: recipe.preparationTime,
-        servings: recipe.servings,
-        cuisine: recipe.cuisine,
-        notes: recipe.notes,
-        fname: recipe.fname,
-        lname: recipe.lname,
-        email: recipe.email,
-        date: recipe.date,
+      const newDocm = push(ref(db, "data / custom /" + `${user.id}`));
+      set(newDocm, {
+        l: m.l,
+        lm: m.lm,
+        b: m.b,
+        bm: m.bm,
+        h: m.h,
+        hm: m.hm,
+        q: m.q,
+        t: m.t,
+        i1: m.i1,
+        i2: m.i2,
+        i3: m.i3,
       })
         .then(() => {
           alert("data saved successfully");
@@ -101,13 +128,21 @@ const Customize = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRecipe({ ...recipe, [name]: value });
+    setM({ ...m, [name]: value });
   };
+  //   const handleChangeb = (e) => {
+  //     const { name, value } = e.target;
+  //     setBm({ ...m, [name]: value });
+  //   };
+  //   const handleChangeh = (e) => {
+  //     const { name, value } = e.target;
+  //     setHm({ ...m, [name]: value });
+  //   };
 
   //   const handleSubmit = (e) => {
   //     e.preventDefault();
   //     // Submit logic here
-  //     console.log(recipe);
+  //     console.log(m);
   //   };
   return (
     <div>
@@ -116,100 +151,180 @@ const Customize = () => {
         {user ? (
           <div>
             <h2 className="p-2 m-2 text-3xl bold text-gray-700 border-l-4 border-green-500">
-              Add Recipe
+              Add m
             </h2>
             <div>
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 gap-8 lg:p-10 sm:p-8 p-6 md:p-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
+                  <div className="shadow-lg rounded-md font-mono text-md h-[120px] p-2">
                     <div>
                       {/* <label htmlFor="names">Name</label> */}
-                      <label htmlFor="names">Name of Recipe</label>
-                      <input
-                        className="border w-[100%] shadow-sm rounded-sm pl-1"
-                        id="names"
-                        type="text"
-                        name="names"
-                        placeholder="Recipe Name *"
-                        value={recipe.names}
-                        onChange={handleChange}
-                      />
+                      <div>
+                        <label htmlFor="l">Length of product </label>
+                        <input
+                          className="border w-[100%] shadow-sm rounded-sm pl-1"
+                          id="l"
+                          type="text"
+                          name="l"
+                          placeholder="Length *"
+                          value={m.l}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mt-2">
+                        {" "}
+                        <select
+                          className="border w-[100%] shadow-sm rounded-sm pl-1"
+                          name="lm"
+                          value={m.lm}
+                          onChange={handleChange}
+                        >
+                          <option value="">Select Masurment</option>
+                          <option value="C.M.">C.M. (Cente Meter)</option>
+                          <option value="M.">M. (Meter)</option>
+                          <option value="Inch">Inch </option>
+                          <option value="ft (feet)">ft (foot)</option>
+
+                          {/* Add more options */}
+                        </select>
+                      </div>
                     </div>
                     <div className="text-red-500">
                       {" "}
-                      {error && <div>{error.names}</div>}
+                      {error && <div> {error.l}</div>}
+                      {error && <div> {error.lm}</div>}
                     </div>
                   </div>
 
-                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
+                  <div className="shadow-lg rounded-md font-mono text-md h-[120px] p-2">
+                    {" "}
                     <div>
-                      <label htmlFor="cookingTime">Cooking Time</label>
+                      <label htmlFor="b">Width of Product</label>
                     </div>
                     <div>
                       {" "}
                       <input
                         className="border w-[100%] shadow-sm rounded-sm pl-1"
-                        id="cookingTime"
-                        type="text"
-                        name="cookingTime"
-                        placeholder="Cooking Time"
+                        id="b"
+                        type="number"
+                        name="b"
+                        placeholder="Width"
                         onChange={handleChange}
-                        value={recipe.cookingTime}
+                        value={m.b}
                       />
                     </div>
-                  </div>
-                  <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
+                    <div className="mt-2">
+                      {" "}
+                      <select
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
+                        name="bm"
+                        value={m.bm}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select Masurment</option>
+                        <option value="C.M.">C.M. (Cente Meter)</option>
+                        <option value="M.">M. (Meter)</option>
+                        <option value="Inch">Inch </option>
+                        <option value="ft (feet)">ft (foot)</option>
+
+                        {/* Add more options */}
+                      </select>
+                    </div>
                     <div>
-                      <label htmlFor="preparationTime">Preparation Time</label>
+                      <div className="text-red-500">
+                        {" "}
+                        {error && <div> {error.b}</div>}
+                        {error && <div> {error.bm}</div>}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="shadow-lg rounded-md font-mono text-md h-[120px] p-2">
+                    <div>
+                      <label htmlFor="h">Height of product</label>
                     </div>
                     <div>
                       <input
                         className="border w-[100%] shadow-sm rounded-sm pl-1"
-                        id="preparationTime"
-                        type="text"
-                        name="preparationTime"
-                        placeholder="Preparation Time"
+                        id="h"
+                        type="number"
+                        name="h"
+                        placeholder="Height"
                         onChange={handleChange}
-                        value={recipe.preparationTime}
+                        value={m.h}
                       />
+                    </div>
+
+                    <div className="mt-2">
+                      {" "}
+                      <select
+                        className="border w-[100%] shadow-sm rounded-sm pl-1"
+                        name="hm"
+                        value={m.hm}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select Masurment</option>
+                        <option value="C.M.">C.M. (Cente Meter)</option>
+                        <option value="M.">M. (Meter)</option>
+                        <option value="Inch">Inch </option>
+                        <option value="ft (feet)">ft (foot)</option>
+
+                        {/* Add more options */}
+                      </select>
+                    </div>
+                    <div>
+                      <div className="text-red-500">
+                        {" "}
+                        {error && <div> {error.h}</div>}
+                        {error && <div> {error.hm}</div>}
+                      </div>
                     </div>
                   </div>
                   <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
-                      <label htmlFor="servings">Servings</label>
+                      <label htmlFor="q">Quantity</label>
                     </div>
                     <div>
                       {" "}
                       <input
                         className="border w-[100%] shadow-sm rounded-sm pl-1"
                         type="number"
-                        name="servings"
-                        placeholder="Number of Servings"
+                        name="q"
+                        placeholder="Number of Quantity"
                         onChange={handleChange}
-                        value={recipe.servings}
+                        value={m.q}
                       />
+                    </div>
+                    <div className="text-red-500">
+                      {" "}
+                      {error && <div> {error.q}</div>}
+                      {error && <div> {error.qm}</div>}
                     </div>
                   </div>
                   <div className="shadow-lg rounded-md font-mono text-md h-[90px] p-2">
                     <div>
-                      <label htmlFor="cuisine">Cuisine</label>
+                      <label htmlFor="type">Type</label>
                     </div>
                     <div>
                       {" "}
                       <select
                         className="border w-[100%] shadow-sm rounded-sm pl-1"
-                        name="cuisine"
-                        value={recipe.cuisine}
+                        name="t"
+                        value={m.t}
                         onChange={handleChange}
                       >
-                        <option value="">Select Cuisine</option>
-                        <option value="Indian">Bed</option>
-                        <option value="Japanise">Chair</option>
-                        <option value="USA">Table</option>
-                        <option value="Italian">Shofa</option>
-                        <option value="Chinese">Door</option>
+                        <option value="">Select Product</option>
+                        <option value="Bed">Bed</option>
+                        <option value="Chair">Chair</option>
+                        <option value="Table">Table</option>
+                        <option value="Shofa">Shofa</option>
+                        <option value="Door">Door</option>
                         {/* Add more options */}
                       </select>
+                    </div>
+                    <div className="text-red-500">
+                      {" "}
+                      {error && <div> {error.t}</div>}
+                      {error && <div> {error.tm}</div>}
                     </div>
                   </div>
 
@@ -218,38 +333,36 @@ const Customize = () => {
                 <div className="grid grid-cols-1 gap-8 pl-6 sm:pl-6 md:pl-10 pr-10 pb-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
                   <div className="rounded-md font-mono text-md  ">
                     <div>
-                      <label htmlFor="ingredients">Ingredients</label>
+                      <label htmlFor="i1">Instructions 1</label>
                     </div>
                     <div>
                       {" "}
                       <textarea
                         className="shadow-lg border  rounded-md"
-                        id="ingredients"
-                        name="ingredients"
-                        placeholder="Ingredients *"
+                        id="i1"
+                        name="i1"
+                        placeholder="instruction 1*"
                         rows={8}
                         cols={45}
                         onChange={handleChange}
-                        value={recipe.ingredients}
+                        value={m.i1}
                       />
                     </div>
                     <div>
-                      {error && (
-                        <div className="text-red-500">{error.ingredients}</div>
-                      )}
+                      {error && <div className="text-red-500">{error.i1}</div>}
                     </div>
                   </div>
                   <div className=" rounded-md font-mono text-md  ">
                     <div>
-                      <label htmlFor="instructions">Instructions</label>
+                      <label htmlFor="i2">Instruction 2</label>
                     </div>
                     <div>
                       {" "}
                       <textarea
                         className="shadow-lg border rounded-md"
-                        id="instructions"
-                        name="instructions"
-                        placeholder="Instructions *"
+                        id="i2"
+                        name="i2"
+                        placeholder="Instruction 2*"
                         rows={8}
                         cols={45}
                         onChange={handleChange}
@@ -257,25 +370,26 @@ const Customize = () => {
                     </div>
                     <div>
                       {" "}
-                      {error && (
-                        <div className="text-red-500">{error.instructions}</div>
-                      )}
+                      {error && <div className="text-red-500">{error.i2}</div>}
                     </div>
                   </div>
                   <div className="rounded-md font-mono text-md   sm:col-span-1 ">
                     <div>
-                      <label htmlFor="notes">Notes</label>
+                      <label htmlFor="notes">Instructions 3</label>
                     </div>
                     <div>
                       <textarea
                         className="shadow-lg border rounded-md"
-                        name="notes"
-                        placeholder="Additional Notes"
+                        name="i3"
+                        placeholder="Instructions 3"
                         rows={8}
                         cols={45}
                         onChange={handleChange}
-                        value={recipe.notes}
+                        value={m.i3}
                       />
+                    </div>
+                    <div>
+                      {error && <div className="text-red-500">{error.i3}</div>}
                     </div>
                   </div>
                 </div>
@@ -297,7 +411,7 @@ const Customize = () => {
                 </div>
                 <div className="flex justify-end">
                   <button className="mr-8 bg-green-200 border " type="submit">
-                    Add Recipe
+                    Add
                   </button>
                 </div>
               </form>
