@@ -15,6 +15,12 @@ const NewArival = () => {
         </h2>
       </div>
       <div className="flex justify-center">
+        <span>
+          Choice and contact on{" "}
+          <span className="text-xl font-bold">+91 93040 33250</span>
+        </span>
+      </div>
+      <div className="flex justify-center">
         <div className="md:flex md:gap-[20px]     mt-10 ">
           {popular &&
             popular.map((item, index) => {
@@ -36,10 +42,15 @@ const NewArival = () => {
                       {item.name}
                     </div> */}
                       <div></div>
-                      <div className="mt-[15px]">
-                        <span className="font-serif border pl-3 pt-1 pb-1 rounded-md bg-purple-300 text-slate-700 pr-3">
-                          {item.name}
-                        </span>
+                      <div className="mt-[15px] flex justify-between">
+                        <div className="">
+                          <span className="font-serif border pl-3 pt-1 pb-1 rounded-md bg-purple-300 text-slate-700 pr-3">
+                            {item.name}
+                          </span>
+                        </div>
+                        <div className="font-serif text-[17px] border pl-3   rounded-md bg-green-300 text-slate-700 pr-3">
+                          {item.price}
+                        </div>
                       </div>
                     </div>
                   </div>
